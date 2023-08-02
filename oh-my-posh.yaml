@@ -1,0 +1,81 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version: 2.0
+final_space: true
+
+blocks:
+  - type: prompt
+    alignment: left
+    segments:
+      - type: path
+        style: plain
+        foreground: "#61D6D6"
+        template: "\n{{ .Path }} "
+        properties:
+          style: agnoster_short
+          hide_root_location: true
+          max_depth: 3
+      - type: git
+        style: plain
+        foreground: "#B4009E"
+        template: "{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uF044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uF046 {{ .Staging.String }}{{ end }} "
+        properties:
+          fetch_stash_count: true
+          fetch_worktree_count: true
+          fetch_upstream_icon: true
+          fetch_bare_info: true
+      - type: executiontime
+        style: plain
+        foreground: "#F9F1A5"
+        template: "{{ .FormattedMs }}"
+        properties:
+          always_enabled: true
+          threshold: 0
+          style: roundrock
+  - type: prompt
+    alignment: right
+    segments:
+      - type: aws
+        style: plain
+        foreground: "#F9F1A5"
+        template: "[{{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}]"
+        properties:
+          display_default: false
+      - type: python
+        style: plain
+        foreground: "#F9F1A5"
+        template: "[\uE235 {{ if .Venv }}({{ .Venv }}){{ else }}v{{ .Major }}.{{ .Minor }}{{ end }}]"
+        properties:
+          display_mode: context
+      - type: dotnet
+        style: plain
+        foreground: "#3B78FF"
+        template: "[.NET {{ .Major }}.{{ .Minor }}.{{ .Patch }}]"
+      - type: go
+        style: plain
+        foreground: "#58C1C1"
+        template: "[\uE627 {{ .Full }}]"
+      - type: time
+        style: plain
+        foreground: "#007ACC"
+        template: "[{{ .CurrentDate | date .Format }}|{{ dateInZone \"3:04PM\" .CurrentDate \"UTC\" }}]"
+        properties:
+          time_format: "3:04PM"
+  - type: prompt
+    alignment: left
+    newline: true
+    segments:
+      - type: root
+        style: plain
+        template: "\uF0E7 "
+      - type: os
+        style: plain
+        template: "{{.Icon}} "
+      - type: status
+        style: plain
+        foreground: "#EFDCF9"
+        template: "{{ if gt .Code 0 }}{{.Code}} {{ end }}>"
+        foreground_templates:
+          - "{{ if gt .Code 0 }}#FF3C3C{{ else }}#16C60C{{ end }}"
+        properties:
+          always_enabled: true
