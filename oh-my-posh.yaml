@@ -74,7 +74,7 @@ blocks:
         template: "{{.Icon}} "
       - type: session
         style: plain
-        template: "{{ if .SSHSession }}\ueba9 {{ .UserName }}@{{ .HostName }}{{ end }}"
+        template: "{{ if .SSHSession }}\ueba9 {{ .UserName }}@{{ .HostName }}{{ end }} "
       - type: status
         style: plain
         foreground: "#EFDCF9"
