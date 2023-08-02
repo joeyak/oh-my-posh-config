@@ -20,6 +20,7 @@ blocks:
         foreground: "#B4009E"
         template: "{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uF044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uF046 {{ .Staging.String }}{{ end }} "
         properties:
+          fetch_status: true
           fetch_stash_count: true
           fetch_worktree_count: true
           fetch_upstream_icon: true
@@ -71,6 +72,9 @@ blocks:
       - type: os
         style: plain
         template: "{{.Icon}} "
+      - type: session
+        style: plain
+        template: "{{ if .SSHSession }}\ueba9 {{ .UserName }}@{{ .HostName }}{{ end }}"
       - type: status
         style: plain
         foreground: "#EFDCF9"
