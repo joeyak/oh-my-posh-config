@@ -34,12 +34,15 @@ blocks:
           threshold: 0
           style: roundrock
   - type: prompt
-    alignment: right
+    alignment: left
     segments:
+      - type: text
+        style: plain
+        template: " ~ "
       - type: aws
         style: plain
         foreground: "#F9F1A5"
-        template: "[{{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}]"
+        template: "[\uE33D {{ .Profile }}]"
         properties:
           display_default: false
       - type: python
@@ -51,30 +54,29 @@ blocks:
       - type: dotnet
         style: plain
         foreground: "#3B78FF"
-        template: "[.NET {{ .Major }}.{{ .Minor }}.{{ .Patch }}]"
+        template: "[\uE77F {{ .Major }}.{{ .Minor }}.{{ .Patch }}]"
       - type: go
         style: plain
         foreground: "#58C1C1"
         template: "[\uE627 {{ .Full }}]"
-      - type: time
-        style: plain
-        foreground: "#007ACC"
-        template: "[{{ .CurrentDate | date .Format }}|{{ dateInZone \"3:04PM\" .CurrentDate \"UTC\" }}]"
-        properties:
-          time_format: "3:04PM"
   - type: prompt
     alignment: left
     newline: true
     segments:
-      - type: root
-        style: plain
-        template: "\uF0E7 "
       - type: os
         style: plain
         template: "{{.Icon}} "
+      - type: time
+        style: plain
+        foreground: "#007ACC"
+        template: "[{{ .CurrentDate | date .Format }}] "
+        properties:
+          time_format: "3:04PM"
       - type: session
         style: plain
-        template: "{{ if .SSHSession }}\ueba9 {{ .UserName }}@{{ .HostName }}{{ end }} "
+        template: "{{ if .Root }}root{{ else if .SSHSession }}\ueba9 {{ .UserName }}{{ end }} "
+        foreground_templates:
+          - "{{ if .Root }}#FF3C3C{{ end }}"
       - type: status
         style: plain
         foreground: "#EFDCF9"
