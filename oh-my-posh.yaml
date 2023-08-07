@@ -74,7 +74,7 @@ blocks:
           time_format: "3:04PM"
       - type: session
         style: plain
-        template: "{{ if .Root }}root{{ else if .SSHSession }}\ueba9 {{ .UserName }}{{ end }} "
+        template: "{{if .SSHSession }}\ueba9 {{ .UserName }}{{ else if .Root }}root{{ end }} "
         foreground_templates:
           - "{{ if .Root }}#FF3C3C{{ end }}"
       - type: status
